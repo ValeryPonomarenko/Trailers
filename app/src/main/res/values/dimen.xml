@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="trailer_card_margin">16dp</dimen>
+    <dimen name="trailer_card_width">156dp</dimen>
+    <dimen name="trailer_card_height">282dp</dimen>
+    <dimen name="trailer_title_height">56dp</dimen>
+    <dimen name="trailer_card_corner_radius">2dp</dimen>
+
+    <dimen name="trailer_small_card_width">100dp</dimen>
+    <dimen name="trailer_small_card_height">145dp</dimen>
+
+
+    <dimen name="player_height">216dp</dimen>
+</resources>

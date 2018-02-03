@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/trailer_small_card_width"
+    android:layout_height="@dimen/trailer_small_card_height"
+    app:cardCornerRadius="@dimen/trailer_card_corner_radius">
+
+    <ImageView
+        android:id="@+id/image_trailer_logo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        tools:ignore="ContentDescription" />
+
+</android.support.v7.widget.CardView>
