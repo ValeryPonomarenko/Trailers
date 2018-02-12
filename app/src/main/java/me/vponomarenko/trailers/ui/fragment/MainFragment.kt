@@ -2,6 +2,7 @@ package me.vponomarenko.trailers.ui.fragment
 
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import me.vponomarenko.trailers.R
 import me.vponomarenko.trailers.data.viewdata.MainViewData
 import me.vponomarenko.trailers.di.module.ViewModelFactory
 import me.vponomarenko.trailers.extension.observe
+import me.vponomarenko.trailers.utils.adapter.TrailersRVAdapter
 import me.vponomarenko.trailers.viewmodel.MainViewModel
 import javax.inject.Inject
 
@@ -22,11 +24,16 @@ import javax.inject.Inject
 class MainFragment : BaseFragment() {
 
     companion object {
+        private const val NUMBER_OF_COLUMNS = 2
+
         fun newInstance() = MainFragment()
     }
 
     @Inject
     protected lateinit var viewModelFactory: ViewModelFactory
+
+    @Inject
+    protected lateinit var trailersAdapter: TrailersRVAdapter
 
     private val viewModel by lazy {
         ViewModelProviders.of(activity!!, viewModelFactory).get(MainViewModel::class.java)
@@ -37,11 +44,16 @@ class MainFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        rv_trailers.layoutManager = GridLayoutManager(context, NUMBER_OF_COLUMNS)
+        rv_trailers.adapter = trailersAdapter
+
         viewModel.trailers.observe(this) { data: MainViewData? ->
             when (data) {
                 is MainViewData.Loading -> progress_bar.visibility = View.VISIBLE
                 is MainViewData.Trailers -> {
                     progress_bar.visibility = View.GONE
+                    trailersAdapter.trailers = data.trailers
                 }
             }
         }

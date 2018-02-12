@@ -6,4 +6,6 @@ package me.vponomarenko.trailers.data.model
  * LinkedIn: https://www.linkedin.com/in/ponomarenkovalery
  */
 
-data class Trailer(val title: String)
+data class Trailer(
+        val title: String,
+        val imageUrl: String)
