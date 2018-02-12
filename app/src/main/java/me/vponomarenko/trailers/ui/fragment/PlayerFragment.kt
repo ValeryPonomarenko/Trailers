@@ -1,10 +1,10 @@
-package me.vponomaren.trailers.ui.fragment
+package me.vponomarenko.trailers.ui.fragment
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import me.vponomaren.trailers.R
+import me.vponomarenko.trailers.R
 
 /**
  * Author: Valery Ponomarenko
@@ -15,9 +15,7 @@ import me.vponomaren.trailers.R
 class PlayerFragment : Fragment() {
 
     companion object {
-
         fun newInstance() = PlayerFragment()
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
