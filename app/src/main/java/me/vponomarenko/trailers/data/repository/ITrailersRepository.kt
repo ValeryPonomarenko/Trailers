@@ -2,6 +2,7 @@ package me.vponomarenko.trailers.data.repository
 
 import io.reactivex.Single
 import me.vponomarenko.trailers.data.model.Trailer
+import me.vponomarenko.trailers.data.model.TrailerFullInfo
 
 /**
  * Author: Valery Ponomarenko
@@ -12,5 +13,7 @@ import me.vponomarenko.trailers.data.model.Trailer
 interface ITrailersRepository {
 
     fun loadTrailers(): Single<List<Trailer>>
+
+    fun trailerFullInfo(trailerTitle: String): Single<TrailerFullInfo>
 
 }

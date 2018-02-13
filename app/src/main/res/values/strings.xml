@@ -2,4 +2,5 @@
     <string name="app_name">Trailers</string>
 
     <string name="see_also">See also</string>
+    <string name="main_fragment_title">Trailers</string>
 </resources>

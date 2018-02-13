@@ -1,7 +1,10 @@
 package me.vponomarenko.trailers.data.repository
 
+import android.content.res.Resources
 import io.reactivex.Single
 import me.vponomarenko.trailers.data.model.Trailer
+import me.vponomarenko.trailers.data.model.TrailerFullInfo
+import me.vponomarenko.trailers.data.source.LocalDataSource
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -13,18 +16,18 @@ import javax.inject.Singleton
  */
 
 @Singleton
-class TrailersRepository @Inject constructor(): ITrailersRepository {
+class TrailersRepository @Inject constructor(
+        private val localDataSource: LocalDataSource
+): ITrailersRepository {
 
-    override fun loadTrailers() =
-            Single
-                    .just(listOf(
-                            Trailer("Wonder Woman", "https://i.ebayimg.com/images/g/4n8AAOSwjKFZQVFt/s-l1600.jpg"),
-                            Trailer("Lego: The Movie", "http://www.joblo.com/posters/images/full/Lego-Batman-Movie-character-poster-2.jpg"),
-                            Trailer("Coco", "https://images-na.ssl-images-amazon.com/images/M/MV5BYjQ5NjM0Y2YtNjZkNC00ZDhkLWJjMWItN2QyNzFkMDE3ZjAxXkEyXkFqcGdeQXVyODIxMzk5NjA@._V1_SY1000_CR0,0,699,1000_AL_.jpg"),
-                            Trailer("Logan", "https://images-na.ssl-images-amazon.com/images/M/MV5BMjQwODQwNTg4OV5BMl5BanBnXkFtZTgwMTk4MTAzMjI@._V1_.jpg"),
-                            Trailer("La La Land", "https://images-na.ssl-images-amazon.com/images/M/MV5BMzUzNDM2NzM2MV5BMl5BanBnXkFtZTgwNTM3NTg4OTE@._V1_SY1000_SX675_AL_.jpg"),
-                            Trailer("Room", "https://images-na.ssl-images-amazon.com/images/M/MV5BMjE4NzgzNzEwMl5BMl5BanBnXkFtZTgwMTMzMDE0NjE@._V1_SY1000_SX675_AL_.jpg")
-                    ))
+    override fun loadTrailers(): Single<List<Trailer>> =
+            Single.just(localDataSource.trailers.map { Trailer(it.title, it.imageUrl) })
                     .delay(2, TimeUnit.SECONDS)
+
+    override fun trailerFullInfo(trailerTitle: String): Single<TrailerFullInfo> =
+            Single.just(
+                    localDataSource.trailers.find { it.title == trailerTitle }
+                            ?: throw Resources.NotFoundException()
+            )
 
 }

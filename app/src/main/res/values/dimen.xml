@@ -8,6 +8,7 @@
     <dimen name="trailer_small_card_width">100dp</dimen>
     <dimen name="trailer_small_card_height">145dp</dimen>
 
-
     <dimen name="player_height">216dp</dimen>
+    <dimen name="small_player_width">140dp</dimen>
+    <dimen name="small_player_height">78dp</dimen>
 </resources>

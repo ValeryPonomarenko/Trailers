@@ -7,6 +7,7 @@ import dagger.android.AndroidInjection
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import me.vponomarenko.trailers.R
+import me.vponomarenko.trailers.router.base.INavigator
 import me.vponomarenko.trailers.ui.fragment.MainFragment
 import javax.inject.Inject
 
@@ -21,6 +22,9 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
     @Inject
     protected lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
 
+    @Inject
+    protected lateinit var navigator: INavigator
+
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
@@ -33,6 +37,10 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
                     .addToBackStack(null)
                     .commit()
         }
+    }
+
+    override fun onBackPressed() {
+        navigator.onBackPressed()
     }
 
     override fun supportFragmentInjector() = fragmentInjector

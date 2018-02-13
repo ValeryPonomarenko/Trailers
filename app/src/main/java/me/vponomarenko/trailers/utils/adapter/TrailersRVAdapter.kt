@@ -21,8 +21,12 @@ class TrailersRVAdapter @Inject constructor(): RecyclerView.Adapter<TrailerViewH
             notifyDataSetChanged()
         }
 
+    var onClickListener: ((String) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-            TrailerViewHolder(LayoutInflater.from(parent.context), parent)
+            TrailerViewHolder(LayoutInflater.from(parent.context), parent) {
+                onClickListener?.invoke(it)
+            }
 
     override fun getItemCount() = trailers?.count() ?: 0
 

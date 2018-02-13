@@ -6,6 +6,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import me.vponomarenko.trailers.data.repository.ITrailersRepository
 import me.vponomarenko.trailers.data.viewdata.MainViewData
+import me.vponomarenko.trailers.router.base.INavigator
+import me.vponomarenko.trailers.ui.Screens
 import javax.inject.Inject
 
 /**
@@ -15,13 +17,18 @@ import javax.inject.Inject
  */
 
 class MainViewModel @Inject constructor(
-        private val repository: ITrailersRepository
+        private val repository: ITrailersRepository,
+        private val navigator: INavigator
 ) : ViewModel() {
 
     val trailers = MutableLiveData<MainViewData>()
 
     init {
         loadTrailers()
+    }
+
+    fun onTrailerClick(trailerName: String) {
+        navigator.navigatorTo(Screens.Player, trailerName)
     }
 
     private fun loadTrailers() {

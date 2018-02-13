@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.fragment_main.*
 import me.vponomarenko.trailers.R
 import me.vponomarenko.trailers.data.viewdata.MainViewData
 import me.vponomarenko.trailers.di.module.ViewModelFactory
+import me.vponomarenko.trailers.extension.installToolbar
 import me.vponomarenko.trailers.extension.observe
 import me.vponomarenko.trailers.utils.adapter.TrailersRVAdapter
 import me.vponomarenko.trailers.viewmodel.MainViewModel
@@ -45,8 +46,13 @@ class MainFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        installToolbar(toolbar, R.string.main_fragment_title)
+
         rv_trailers.layoutManager = GridLayoutManager(context, NUMBER_OF_COLUMNS)
         rv_trailers.adapter = trailersAdapter
+        trailersAdapter.onClickListener = {
+            viewModel.onTrailerClick(it)
+        }
 
         viewModel.trailers.observe(this) { data: MainViewData? ->
             when (data) {

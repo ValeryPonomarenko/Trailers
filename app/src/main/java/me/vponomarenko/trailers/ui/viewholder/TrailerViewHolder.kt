@@ -16,12 +16,16 @@ import me.vponomarenko.trailers.data.model.Trailer
  
 class TrailerViewHolder(
         inflater: LayoutInflater,
-        container: ViewGroup
+        container: ViewGroup,
+        private val onCLickListener: (String) -> Unit
 ) : RecyclerView.ViewHolder(inflater.inflate(R.layout.item_trailer, container, false)) {
 
     fun bind(trailer: Trailer) {
         Glide.with(itemView.context).load(trailer.imageUrl).into(itemView.image_trailer_logo)
         itemView.text_trailer_title.text = trailer.title
+        itemView.setOnClickListener {
+            onCLickListener(trailer.title)
+        }
     }
 
 }
