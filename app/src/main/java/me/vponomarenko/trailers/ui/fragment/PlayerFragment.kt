@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
+import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.source.MediaSource
 import kotlinx.android.synthetic.main.fragment_player.*
 import kotlinx.android.synthetic.main.item_trailer_small_card.*
 import me.vponomarenko.trailers.R
@@ -39,6 +41,9 @@ class PlayerFragment : BaseFragment() {
     @Inject
     protected lateinit var viewModelFactory: ViewModelFactory
 
+    @Inject
+    protected lateinit var player: SimpleExoPlayer
+
     private val viewModel by lazy {
         ViewModelProviders.of(activity!!, viewModelFactory).get(PlayerViewModel::class.java)
     }
@@ -46,14 +51,23 @@ class PlayerFragment : BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
             inflater.inflate(R.layout.fragment_player, container, false)
 
+    override fun onDestroy() {
+        super.onDestroy()
+        player.release()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        view_player.player = player
         viewModel.loadTrailerFullInfo(
                 arguments?.getString(EXTRA_TRAILER_NAME)
                         ?: throw Resources.NotFoundException())
         viewModel.trailerFullInfo.observe(this) {
             when (it) {
-                is PlayerViewData.Info -> showTrailerInfo(it.trailerFullInfo)
+                is PlayerViewData.Info -> {
+                    showTrailerInfo(it.trailerFullInfo)
+                    startPlaying(it.mediaSource)
+                }
             }
         }
     }
@@ -63,4 +77,9 @@ class PlayerFragment : BaseFragment() {
         text_trailer_title.text = info.title
         text_trailer_description.text = info.description
     }
+
+    private fun startPlaying(source: MediaSource) {
+        player.prepare(source, true, false)
+    }
+
 }

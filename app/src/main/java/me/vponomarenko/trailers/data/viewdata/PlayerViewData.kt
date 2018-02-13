@@ -1,5 +1,6 @@
 package me.vponomarenko.trailers.data.viewdata
 
+import com.google.android.exoplayer2.source.MediaSource
 import me.vponomarenko.trailers.data.model.TrailerFullInfo
 
 /**
@@ -12,7 +13,10 @@ sealed class PlayerViewData {
 
     class Loading : PlayerViewData()
 
-    data class Info(val trailerFullInfo: TrailerFullInfo) : PlayerViewData()
+    data class Info(
+            val trailerFullInfo: TrailerFullInfo,
+            val mediaSource: MediaSource
+    ) : PlayerViewData()
 
     data class Error(val message: String) : PlayerViewData()
 

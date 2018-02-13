@@ -25,7 +25,7 @@ abstract class MainActivityModule {
     abstract fun mainFragmentInjector(): MainFragment
 
     @FragmentScope
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(modules = [PlayerFragmentModule::class])
     abstract fun playerFragmentInjector(): PlayerFragment
 
     @Binds
