@@ -1,12 +1,16 @@
 package me.vponomarenko.trailers.ui.viewholder
 
+import android.graphics.Bitmap
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.BitmapImageViewTarget
+import com.bumptech.glide.request.transition.Transition
 import kotlinx.android.synthetic.main.item_trailer.view.*
 import me.vponomarenko.trailers.R
 import me.vponomarenko.trailers.data.model.Trailer
+import me.vponomarenko.trailers.utils.palette.PaletteHelper
 
 /**
  * Author: Valery Ponomarenko
@@ -17,14 +21,27 @@ import me.vponomarenko.trailers.data.model.Trailer
 class TrailerViewHolder(
         inflater: LayoutInflater,
         container: ViewGroup,
-        private val onCLickListener: (String) -> Unit
+        private val paletteHelper: PaletteHelper,
+        private val onClickListener: (String) -> Unit
 ) : RecyclerView.ViewHolder(inflater.inflate(R.layout.item_trailer, container, false)) {
 
     fun bind(trailer: Trailer) {
-        Glide.with(itemView.context).load(trailer.imageUrl).into(itemView.image_trailer_logo)
+        Glide.with(itemView.context)
+                .asBitmap()
+                .load(trailer.imageUrl)
+                .into(object : BitmapImageViewTarget(itemView.image_trailer_logo) {
+                    override fun onResourceReady(bitmap: Bitmap, transition: Transition<in Bitmap>?) {
+                        super.onResourceReady(bitmap, transition)
+                        paletteHelper
+                                .getAvgColorOfBitmap(bitmap)
+                                .subscribe { color: Int ->
+                                    itemView.trailer_card.setBackgroundColor(color)
+                                }
+                    }
+                })
         itemView.text_trailer_title.text = trailer.title
         itemView.setOnClickListener {
-            onCLickListener(trailer.title)
+            onClickListener(trailer.title)
         }
     }
 
