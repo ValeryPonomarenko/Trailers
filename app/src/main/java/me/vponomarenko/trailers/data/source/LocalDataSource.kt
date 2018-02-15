@@ -36,6 +36,13 @@ class LocalDataSource @Inject constructor() {
                     "While navigating their careers in Los Angeles, a pianist and an actress fall in love while attempting to reconcile their aspirations for the future.",
                     "http://178.162.205.104/download/?title=la+la+land+-+trailer&url=https%3A%2F%2Fcs510606.vkuservideo.net%2F8%2Fu20274712%2Fvideos%2Fe112b70490.720.mp4%3Fextra%3DCBg9YHFeN1eSPW_k0yRLxPa0WxJhdY_dixoR-kUF7YkP_VLDqTSPdsAsYmiTZgYCCUC8uszB6fI8m0DBuTONrqpGRoZQbvnikdh0VzRlr5Ckg8hz809y1BN9KQz2GckSAQ"
             )
+            ,
+            TrailerFullInfo(
+                    "The Greatest Showman",
+                    "https://shyfyy.files.wordpress.com/2017/12/greatestshowman-8.jpg",
+                    "Celebrates the birth of show business, and tells of a visionary who rose from nothing to create a spectacle that became a worldwide sensation.",
+                    "http://178.162.205.104/download/?title=The+Greatest+Showman+↑+Official+Trailer&url=https%3A%2F%2Fcs640203.vkuservideo.net%2F5%2Fu12869897%2Fvideos%2Ff32ecc3cfd.1080.mp4%3Fextra%3Dx-7C-z66Yn8sPYXbpBtf7us-hk-u40SRYj3BM4MTjRsajScaeeC49qnYEVxS28kr9pMna3jAk9MuXNEg7ei7yGv7QVtBGT-ufcntarm-UmiYwkg5nNlxXZYx8gw_rl8xlQ"
+            )
     )
 
 }

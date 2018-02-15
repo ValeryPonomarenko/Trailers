@@ -14,7 +14,7 @@ import io.reactivex.schedulers.Schedulers
 
 class PaletteHelper {
 
-    fun getAvgColorOfBitmap(bitmap: Bitmap, pixelStep: Int = 4): Single<Int> =
+    fun getAvgColorOfBitmap(bitmap: Bitmap, pixelStep: Int = 4, alpha: Int = 255): Single<Int> =
             Single
                     .fromCallable {
                         var red = 0
@@ -32,7 +32,8 @@ class PaletteHelper {
                             }
                         }
 
-                        return@fromCallable Color.rgb(
+                        return@fromCallable Color.argb(
+                                alpha,
                                 red / pixelsCount,
                                 green / pixelsCount,
                                 blue / pixelsCount
