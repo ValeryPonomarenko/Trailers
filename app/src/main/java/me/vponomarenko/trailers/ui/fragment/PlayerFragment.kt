@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.res.Resources
 import android.os.Bundle
 import android.support.v4.graphics.ColorUtils
+import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,11 +15,13 @@ import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_player.*
 import kotlinx.android.synthetic.main.item_trailer_small_card.*
 import me.vponomarenko.trailers.R
+import me.vponomarenko.trailers.data.model.Trailer
 import me.vponomarenko.trailers.data.model.TrailerFullInfo
 import me.vponomarenko.trailers.data.viewdata.PlayerViewData
 import me.vponomarenko.trailers.di.module.ViewModelFactory
 import me.vponomarenko.trailers.extension.into
 import me.vponomarenko.trailers.extension.observe
+import me.vponomarenko.trailers.utils.adapter.TrailersRVAdapter
 import me.vponomarenko.trailers.utils.palette.PaletteHelper
 import me.vponomarenko.trailers.viewmodel.PlayerViewModel
 import javax.inject.Inject
@@ -32,6 +35,7 @@ import javax.inject.Inject
 class PlayerFragment : BaseFragment() {
 
     companion object {
+        private const val NUMBER_OF_COLUMNS = 2
         private const val BACKGROUND_ALPHA = 0.4f
         private const val EXTRA_TRAILER_NAME = "me.vponomarenko.trailers.ui.fragment.trailer_name"
 
@@ -53,6 +57,9 @@ class PlayerFragment : BaseFragment() {
     protected lateinit var paletteHelper: PaletteHelper
     private var paletteHelperSubscription: Disposable? = null
 
+    @Inject
+    protected lateinit var trailersAdapter: TrailersRVAdapter
+
     private val viewModel by lazy {
         ViewModelProviders.of(activity!!, viewModelFactory).get(PlayerViewModel::class.java)
     }
@@ -67,6 +74,10 @@ class PlayerFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        rv_see_also.layoutManager = GridLayoutManager(context, NUMBER_OF_COLUMNS)
+        rv_see_also.adapter = trailersAdapter
+
         view_player.player = player
         viewModel.loadTrailerFullInfo(
                 arguments?.getString(EXTRA_TRAILER_NAME)
@@ -74,8 +85,9 @@ class PlayerFragment : BaseFragment() {
         viewModel.trailerFullInfo.observe(this) {
             when (it) {
                 is PlayerViewData.Info -> {
-                    showTrailerInfo(it.trailerFullInfo)
                     startPlaying(it.mediaSource)
+                    showTrailerInfo(it.trailerFullInfo)
+                    showSeeAlsoTrailers(it.seeAlso)
                 }
             }
         }
@@ -102,6 +114,10 @@ class PlayerFragment : BaseFragment() {
         }
         text_trailer_title.text = info.title
         text_trailer_description.text = info.description
+    }
+
+    private fun showSeeAlsoTrailers(trailers: List<Trailer>) {
+        trailersAdapter.trailers = trailers
     }
 
     private fun startPlaying(source: MediaSource) {

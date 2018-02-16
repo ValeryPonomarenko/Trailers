@@ -6,8 +6,12 @@ import android.net.Uri
 import com.google.android.exoplayer2.source.ExtractorMediaSource
 import com.google.android.exoplayer2.source.MediaSource
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
+import me.vponomarenko.trailers.data.model.Trailer
+import me.vponomarenko.trailers.data.model.TrailerFullInfo
 import me.vponomarenko.trailers.data.repository.ITrailersRepository
 import me.vponomarenko.trailers.data.viewdata.PlayerViewData
 import javax.inject.Inject
@@ -25,17 +29,26 @@ class PlayerViewModel @Inject constructor(
     val trailerFullInfo = MutableLiveData<PlayerViewData>()
 
     fun loadTrailerFullInfo(trailerName: String) {
-        repository.trailerFullInfo(trailerName)
+        Single
+                .zip(
+                        repository.trailerFullInfo(trailerName),
+                        repository.loadTrailers(),
+                        BiFunction { fullInfo: TrailerFullInfo, seeAlso: List<Trailer> ->
+                            return@BiFunction fullInfo to seeAlso
+                        }
+                )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe { trailerFullInfo.value = PlayerViewData.Loading() }
-                .subscribe({
+                .subscribe({ (fullInfo, seeAlso) ->
                     trailerFullInfo.value = PlayerViewData.Info(
-                            it,
-                            buildMediaSource(Uri.parse(it.sourceUrl))
+                            fullInfo,
+                            buildMediaSource(Uri.parse(fullInfo.sourceUrl)),
+                            seeAlso
                     )
                 }, {
-                    trailerFullInfo.value = PlayerViewData.Error(it.message ?: "Something went wrong")
+                    trailerFullInfo.value = PlayerViewData.Error(it.message
+                            ?: "Something went wrong")
                 })
     }
 
