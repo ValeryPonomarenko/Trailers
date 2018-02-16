@@ -2,9 +2,11 @@ package me.vponomarenko.trailers.ui.fragment
 
 import android.arch.lifecycle.ViewModelProviders
 import android.content.res.Resources
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.graphics.ColorUtils
 import android.support.v7.widget.GridLayoutManager
+import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -60,28 +62,44 @@ class PlayerFragment : BaseFragment() {
     @Inject
     protected lateinit var trailersAdapter: TrailersRVAdapter
 
+    private val extraTrailerName by lazy {
+        arguments?.getString(EXTRA_TRAILER_NAME)
+            ?: throw Resources.NotFoundException()
+    }
+
     private val viewModel by lazy {
         ViewModelProviders.of(activity!!, viewModelFactory).get(PlayerViewModel::class.java)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        postponeEnterTransition()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            sharedElementEnterTransition =
+                    TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+            sharedElementReturnTransition = null
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
             inflater.inflate(R.layout.fragment_player, container, false)
 
-    override fun onDestroy() {
-        super.onDestroy()
-        player.release()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            image_trailer_logo.transitionName = extraTrailerName
+        }
+
         rv_see_also.layoutManager = GridLayoutManager(context, NUMBER_OF_COLUMNS)
         rv_see_also.adapter = trailersAdapter
+        trailersAdapter.onClickListener = {
+            viewModel.onSeeAlsoTrailerClick(it)
+        }
 
         view_player.player = player
-        viewModel.loadTrailerFullInfo(
-                arguments?.getString(EXTRA_TRAILER_NAME)
-                        ?: throw Resources.NotFoundException())
+        viewModel.loadTrailerFullInfo(extraTrailerName)
+
         viewModel.trailerFullInfo.observe(this) {
             when (it) {
                 is PlayerViewData.Info -> {
@@ -95,12 +113,20 @@ class PlayerFragment : BaseFragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        view_player.player = null
+        player.playWhenReady = false
         paletteHelperSubscription?.dispose()
         paletteHelperSubscription = null
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        player.release()
+    }
+
     private fun showTrailerInfo(info: TrailerFullInfo) {
         Glide.with(this).asBitmap().load(info.imageUrl).into(image_trailer_logo) {
+            startPostponedEnterTransition()
             paletteHelperSubscription =
                     paletteHelper.getAvgColorOfBitmap(it)
                             .subscribe { color: Int ->

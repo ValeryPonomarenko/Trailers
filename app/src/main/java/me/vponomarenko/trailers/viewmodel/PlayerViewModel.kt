@@ -13,7 +13,10 @@ import io.reactivex.schedulers.Schedulers
 import me.vponomarenko.trailers.data.model.Trailer
 import me.vponomarenko.trailers.data.model.TrailerFullInfo
 import me.vponomarenko.trailers.data.repository.ITrailersRepository
+import me.vponomarenko.trailers.data.transition.PlayerTransition
 import me.vponomarenko.trailers.data.viewdata.PlayerViewData
+import me.vponomarenko.trailers.router.base.INavigator
+import me.vponomarenko.trailers.ui.Screens
 import javax.inject.Inject
 
 /**
@@ -23,7 +26,8 @@ import javax.inject.Inject
  */
  
 class PlayerViewModel @Inject constructor(
-        private val repository: ITrailersRepository
+        private val repository: ITrailersRepository,
+        private val navigator: INavigator
 ) : ViewModel() {
 
     val trailerFullInfo = MutableLiveData<PlayerViewData>()
@@ -50,6 +54,10 @@ class PlayerViewModel @Inject constructor(
                     trailerFullInfo.value = PlayerViewData.Error(it.message
                             ?: "Something went wrong")
                 })
+    }
+
+    fun onSeeAlsoTrailerClick(playerTransition: PlayerTransition) {
+        navigator.navigatorTo(Screens.Player, playerTransition)
     }
 
     private fun buildMediaSource(uri: Uri): MediaSource {

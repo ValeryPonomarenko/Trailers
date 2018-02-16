@@ -5,7 +5,6 @@ import io.reactivex.Single
 import me.vponomarenko.trailers.data.model.Trailer
 import me.vponomarenko.trailers.data.model.TrailerFullInfo
 import me.vponomarenko.trailers.data.source.LocalDataSource
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -22,7 +21,6 @@ class TrailersRepository @Inject constructor(
 
     override fun loadTrailers(): Single<List<Trailer>> =
             Single.just(localDataSource.trailers.map { Trailer(it.title, it.imageUrl) })
-                    .delay(2, TimeUnit.SECONDS)
 
     override fun trailerFullInfo(trailerTitle: String): Single<TrailerFullInfo> =
             Single.just(

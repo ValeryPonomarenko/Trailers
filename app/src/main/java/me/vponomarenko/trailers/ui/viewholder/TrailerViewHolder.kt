@@ -1,6 +1,7 @@
 package me.vponomarenko.trailers.ui.viewholder
 
 import android.graphics.Bitmap
+import android.support.v4.view.ViewCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import com.bumptech.glide.request.transition.Transition
 import kotlinx.android.synthetic.main.item_trailer.view.*
 import me.vponomarenko.trailers.R
 import me.vponomarenko.trailers.data.model.Trailer
+import me.vponomarenko.trailers.data.transition.PlayerTransition
 import me.vponomarenko.trailers.utils.palette.PaletteHelper
 
 /**
@@ -22,7 +24,7 @@ class TrailerViewHolder(
         inflater: LayoutInflater,
         container: ViewGroup,
         private val paletteHelper: PaletteHelper,
-        private val onClickListener: (String) -> Unit
+        private val onClickListener: (PlayerTransition) -> Unit
 ) : RecyclerView.ViewHolder(inflater.inflate(R.layout.item_trailer, container, false)) {
 
     fun bind(trailer: Trailer) {
@@ -39,9 +41,10 @@ class TrailerViewHolder(
                                 }
                     }
                 })
+        ViewCompat.setTransitionName(itemView.image_trailer_logo, trailer.title)
         itemView.text_trailer_title.text = trailer.title
         itemView.setOnClickListener {
-            onClickListener(trailer.title)
+            onClickListener(PlayerTransition(trailer.title, itemView.image_trailer_logo))
         }
     }
 

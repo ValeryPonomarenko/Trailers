@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import me.vponomarenko.trailers.data.repository.ITrailersRepository
+import me.vponomarenko.trailers.data.transition.PlayerTransition
 import me.vponomarenko.trailers.data.viewdata.MainViewData
 import me.vponomarenko.trailers.router.base.INavigator
 import me.vponomarenko.trailers.ui.Screens
@@ -27,8 +28,8 @@ class MainViewModel @Inject constructor(
         loadTrailers()
     }
 
-    fun onTrailerClick(trailerName: String) {
-        navigator.navigatorTo(Screens.Player, trailerName)
+    fun onTrailerClick(playerTransition: PlayerTransition) {
+        navigator.navigatorTo(Screens.Player, playerTransition)
     }
 
     private fun loadTrailers() {
