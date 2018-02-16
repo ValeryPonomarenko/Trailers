@@ -5,8 +5,8 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 import me.vponomarenko.trailers.di.annotation.ViewModelKey
-import me.vponomarenko.trailers.viewmodel.MainViewModel
-import me.vponomarenko.trailers.viewmodel.PlayerViewModel
+import me.vponomarenko.trailers.feature.main.viewmodel.MainViewModel
+import me.vponomarenko.trailers.feature.player.viewmodel.PlayerViewModel
 
 /**
  * Author: Valery Ponomarenko

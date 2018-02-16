@@ -1,4 +1,4 @@
-package me.vponomarenko.trailers.ui.activity
+package me.vponomarenko.trailers.base
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -8,7 +8,7 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import me.vponomarenko.trailers.R
 import me.vponomarenko.trailers.router.base.INavigator
-import me.vponomarenko.trailers.ui.fragment.MainFragment
+import me.vponomarenko.trailers.feature.main.view.MainFragment
 import javax.inject.Inject
 
 /**

@@ -1,4 +1,4 @@
-package me.vponomarenko.trailers.ui.viewholder
+package me.vponomarenko.trailers.feature.listoftrailers
 
 import android.graphics.Bitmap
 import android.support.v4.view.ViewCompat
@@ -11,7 +11,7 @@ import com.bumptech.glide.request.transition.Transition
 import kotlinx.android.synthetic.main.item_trailer.view.*
 import me.vponomarenko.trailers.R
 import me.vponomarenko.trailers.data.model.Trailer
-import me.vponomarenko.trailers.data.transition.PlayerTransition
+import me.vponomarenko.trailers.feature.player.viewdata.PlayerTransition
 import me.vponomarenko.trailers.utils.palette.PaletteHelper
 
 /**

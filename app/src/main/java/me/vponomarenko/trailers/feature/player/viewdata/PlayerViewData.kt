@@ -1,4 +1,4 @@
-package me.vponomarenko.trailers.data.viewdata
+package me.vponomarenko.trailers.feature.player.viewdata
 
 import com.google.android.exoplayer2.source.MediaSource
 import me.vponomarenko.trailers.data.model.Trailer

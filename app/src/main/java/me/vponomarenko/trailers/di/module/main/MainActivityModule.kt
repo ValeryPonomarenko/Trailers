@@ -8,8 +8,8 @@ import me.vponomarenko.trailers.di.scope.ActivityScope
 import me.vponomarenko.trailers.di.scope.FragmentScope
 import me.vponomarenko.trailers.router.MainActivityNavigator
 import me.vponomarenko.trailers.router.base.INavigator
-import me.vponomarenko.trailers.ui.fragment.MainFragment
-import me.vponomarenko.trailers.ui.fragment.PlayerFragment
+import me.vponomarenko.trailers.feature.main.view.MainFragment
+import me.vponomarenko.trailers.feature.player.view.PlayerFragment
 
 /**
  * Author: Valery Ponomarenko

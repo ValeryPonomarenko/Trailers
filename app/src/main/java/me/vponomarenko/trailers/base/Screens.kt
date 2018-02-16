@@ -1,4 +1,4 @@
-package me.vponomarenko.trailers.ui
+package me.vponomarenko.trailers.base
 
 /**
  * Author: Valery Ponomarenko

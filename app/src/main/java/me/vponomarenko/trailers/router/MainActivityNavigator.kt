@@ -3,12 +3,12 @@ package me.vponomarenko.trailers.router
 import android.app.FragmentTransaction
 import android.support.v4.view.ViewCompat
 import me.vponomarenko.trailers.R
-import me.vponomarenko.trailers.data.transition.PlayerTransition
+import me.vponomarenko.trailers.feature.player.viewdata.PlayerTransition
 import me.vponomarenko.trailers.router.base.BaseNavigator
 import me.vponomarenko.trailers.router.base.INavigator
-import me.vponomarenko.trailers.ui.Screens
-import me.vponomarenko.trailers.ui.activity.MainActivity
-import me.vponomarenko.trailers.ui.fragment.PlayerFragment
+import me.vponomarenko.trailers.base.Screens
+import me.vponomarenko.trailers.base.MainActivity
+import me.vponomarenko.trailers.feature.player.view.PlayerFragment
 import javax.inject.Inject
 
 /**

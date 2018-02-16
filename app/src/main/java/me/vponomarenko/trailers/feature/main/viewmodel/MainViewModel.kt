@@ -1,14 +1,14 @@
-package me.vponomarenko.trailers.viewmodel
+package me.vponomarenko.trailers.feature.main.viewmodel
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import me.vponomarenko.trailers.data.repository.ITrailersRepository
-import me.vponomarenko.trailers.data.transition.PlayerTransition
-import me.vponomarenko.trailers.data.viewdata.MainViewData
+import me.vponomarenko.trailers.feature.player.viewdata.PlayerTransition
+import me.vponomarenko.trailers.feature.main.viewdata.MainViewData
 import me.vponomarenko.trailers.router.base.INavigator
-import me.vponomarenko.trailers.ui.Screens
+import me.vponomarenko.trailers.base.Screens
 import javax.inject.Inject
 
 /**

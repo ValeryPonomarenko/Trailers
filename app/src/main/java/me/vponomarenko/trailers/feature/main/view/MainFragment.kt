@@ -1,4 +1,4 @@
-package me.vponomarenko.trailers.ui.fragment
+package me.vponomarenko.trailers.feature.main.view
 
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -8,12 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_main.*
 import me.vponomarenko.trailers.R
-import me.vponomarenko.trailers.data.viewdata.MainViewData
+import me.vponomarenko.trailers.feature.main.viewdata.MainViewData
 import me.vponomarenko.trailers.di.module.ViewModelFactory
 import me.vponomarenko.trailers.extension.installToolbar
 import me.vponomarenko.trailers.extension.observe
-import me.vponomarenko.trailers.utils.adapter.TrailersRVAdapter
-import me.vponomarenko.trailers.viewmodel.MainViewModel
+import me.vponomarenko.trailers.base.BaseFragment
+import me.vponomarenko.trailers.feature.listoftrailers.TrailersRVAdapter
+import me.vponomarenko.trailers.feature.main.viewmodel.MainViewModel
 import javax.inject.Inject
 
 /**

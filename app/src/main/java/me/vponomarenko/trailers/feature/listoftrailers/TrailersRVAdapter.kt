@@ -1,11 +1,10 @@
-package me.vponomarenko.trailers.utils.adapter
+package me.vponomarenko.trailers.feature.listoftrailers
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import me.vponomarenko.trailers.data.model.Trailer
-import me.vponomarenko.trailers.data.transition.PlayerTransition
-import me.vponomarenko.trailers.ui.viewholder.TrailerViewHolder
+import me.vponomarenko.trailers.feature.player.viewdata.PlayerTransition
 import me.vponomarenko.trailers.utils.palette.PaletteHelper
 import javax.inject.Inject
 

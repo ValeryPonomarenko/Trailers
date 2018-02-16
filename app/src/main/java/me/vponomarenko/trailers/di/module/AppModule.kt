@@ -5,7 +5,7 @@ import dagger.android.ContributesAndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import me.vponomarenko.trailers.di.module.main.MainActivityModule
 import me.vponomarenko.trailers.di.scope.ActivityScope
-import me.vponomarenko.trailers.ui.activity.MainActivity
+import me.vponomarenko.trailers.base.MainActivity
 
 /**
  * Author: Valery Ponomarenko

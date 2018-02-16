@@ -1,4 +1,4 @@
-package me.vponomarenko.trailers.data.transition
+package me.vponomarenko.trailers.feature.player.viewdata
 
 import android.view.View
 

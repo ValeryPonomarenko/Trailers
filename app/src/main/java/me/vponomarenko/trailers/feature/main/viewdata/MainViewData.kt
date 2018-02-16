@@ -1,4 +1,4 @@
-package me.vponomarenko.trailers.data.viewdata
+package me.vponomarenko.trailers.feature.main.viewdata
 
 import me.vponomarenko.trailers.data.model.Trailer
 

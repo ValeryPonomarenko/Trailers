@@ -1,4 +1,4 @@
-package me.vponomarenko.trailers.ui.fragment
+package me.vponomarenko.trailers.base
 
 import android.content.Context
 import android.support.v4.app.Fragment
