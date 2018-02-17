@@ -101,6 +101,12 @@ class MainFragment : BaseFragment() {
                 is PlayerEvent.Clear -> view_video_preview.visibility = View.GONE
                 is PlayerEvent.PlayingInPreview -> {
                     view_video_preview.visibility = View.VISIBLE
+                    view_video_preview.animate()
+                            .alpha(1.0f)
+                            .setDuration(
+                                    resources.getInteger(android.R.integer.config_longAnimTime).toLong()
+                            )
+                            .start()
                     view_video_preview.startPlaying(it.mediaSource, it.seekPosition)
                 }
             }
