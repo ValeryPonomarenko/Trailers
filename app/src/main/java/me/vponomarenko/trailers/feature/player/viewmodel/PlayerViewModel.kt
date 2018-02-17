@@ -10,13 +10,15 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
+import me.vponomarenko.trailers.base.Screens
 import me.vponomarenko.trailers.data.model.Trailer
 import me.vponomarenko.trailers.data.model.TrailerFullInfo
 import me.vponomarenko.trailers.data.repository.ITrailersRepository
 import me.vponomarenko.trailers.feature.player.viewdata.PlayerTransition
 import me.vponomarenko.trailers.feature.player.viewdata.PlayerViewData
+import me.vponomarenko.trailers.interactor.playerevents.IPlayerEventsInteractor
+import me.vponomarenko.trailers.interactor.playerevents.PlayerEvent
 import me.vponomarenko.trailers.router.base.INavigator
-import me.vponomarenko.trailers.base.Screens
 import javax.inject.Inject
 
 /**
@@ -27,7 +29,8 @@ import javax.inject.Inject
  
 class PlayerViewModel @Inject constructor(
         private val repository: ITrailersRepository,
-        private val navigator: INavigator
+        private val navigator: INavigator,
+        private val playerEventsInteractor: IPlayerEventsInteractor
 ) : ViewModel() {
 
     val trailerFullInfo = MutableLiveData<PlayerViewData>()
@@ -58,6 +61,18 @@ class PlayerViewModel @Inject constructor(
 
     fun onSeeAlsoTrailerClick(playerTransition: PlayerTransition) {
         navigator.navigatorTo(Screens.Player, playerTransition)
+    }
+
+    fun playInPreview(seekPosition: Long) {
+        trailerFullInfo.value?.takeIf { it is PlayerViewData.Info }?.let {
+            playerEventsInteractor
+                    .publicPlayerEvent(
+                            PlayerEvent.PlayingInPreview(
+                                    (it as PlayerViewData.Info).mediaSource,
+                                    seekPosition
+                            )
+                    )
+        }
     }
 
     private fun buildMediaSource(uri: Uri): MediaSource {

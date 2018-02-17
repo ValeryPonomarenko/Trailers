@@ -5,6 +5,7 @@ import dagger.BindsInstance
 import dagger.Component
 import me.vponomarenko.trailers.TrailersApplication
 import me.vponomarenko.trailers.di.module.AppModule
+import me.vponomarenko.trailers.di.module.InteractorModule
 import me.vponomarenko.trailers.di.module.RepositoryModule
 import me.vponomarenko.trailers.di.module.UtilsModule
 import javax.inject.Singleton
@@ -19,7 +20,8 @@ import javax.inject.Singleton
 @Component(modules = [
     AppModule::class,
     RepositoryModule::class,
-    UtilsModule::class
+    UtilsModule::class,
+    InteractorModule::class
 ])
 interface AppComponent {
 

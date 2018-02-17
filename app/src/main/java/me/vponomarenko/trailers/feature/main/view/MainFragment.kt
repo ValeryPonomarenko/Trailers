@@ -8,13 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_main.*
 import me.vponomarenko.trailers.R
-import me.vponomarenko.trailers.feature.main.viewdata.MainViewData
+import me.vponomarenko.trailers.base.BaseFragment
 import me.vponomarenko.trailers.di.module.ViewModelFactory
 import me.vponomarenko.trailers.extension.installToolbar
 import me.vponomarenko.trailers.extension.observe
-import me.vponomarenko.trailers.base.BaseFragment
 import me.vponomarenko.trailers.feature.listoftrailers.TrailersRVAdapter
+import me.vponomarenko.trailers.feature.main.viewdata.MainViewData
 import me.vponomarenko.trailers.feature.main.viewmodel.MainViewModel
+import me.vponomarenko.trailers.interactor.playerevents.PlayerEvent
 import javax.inject.Inject
 
 /**
@@ -55,12 +56,52 @@ class MainFragment : BaseFragment() {
             viewModel.onTrailerClick(it)
         }
 
-        viewModel.trailers.observe(this) { data: MainViewData? ->
-            when (data) {
+        observeTrailers()
+        observePlayerEvents()
+
+        view_video_preview.init()
+        view_video_preview.startPlaying("http://178.162.205.104/download/?title=la+la+land+-+trailer&url=https%3A%2F%2Fcs510606.vkuservideo.net%2F8%2Fu20274712%2Fvideos%2Fe112b70490.720.mp4%3Fextra%3DCBg9YHFeN1eSPW_k0yRLxPa0WxJhdY_dixoR-kUF7YkP_VLDqTSPdsAsYmiTZgYCCUC8uszB6fI8m0DBuTONrqpGRoZQbvnikdh0VzRlr5Ckg8hz809y1BN9KQz2GckSAQ")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        view_video_preview.resume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        view_video_preview.pause()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        view_video_preview.pause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        view_video_preview.release()
+    }
+
+    private fun observeTrailers() {
+        viewModel.trailers.observe(this) {
+            when (it) {
                 is MainViewData.Loading -> progress_bar.visibility = View.VISIBLE
                 is MainViewData.Trailers -> {
                     progress_bar.visibility = View.GONE
-                    trailersAdapter.trailers = data.trailers
+                    trailersAdapter.trailers = it.trailers
+                }
+            }
+        }
+    }
+
+    private fun observePlayerEvents() {
+        viewModel.playerEvent.observe(this) {
+            when (it) {
+                is PlayerEvent.Clear -> view_video_preview.visibility = View.GONE
+                is PlayerEvent.PlayingInPreview -> {
+                    view_video_preview.visibility = View.VISIBLE
+                    view_video_preview.startPlaying(it.mediaSource, it.seekPosition)
                 }
             }
         }

@@ -17,16 +17,16 @@ import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_player.*
 import kotlinx.android.synthetic.main.item_trailer_small_card.*
 import me.vponomarenko.trailers.R
+import me.vponomarenko.trailers.base.BaseFragment
 import me.vponomarenko.trailers.data.model.Trailer
 import me.vponomarenko.trailers.data.model.TrailerFullInfo
-import me.vponomarenko.trailers.feature.player.viewdata.PlayerViewData
 import me.vponomarenko.trailers.di.module.ViewModelFactory
 import me.vponomarenko.trailers.extension.into
 import me.vponomarenko.trailers.extension.observe
-import me.vponomarenko.trailers.base.BaseFragment
 import me.vponomarenko.trailers.feature.listoftrailers.TrailersRVAdapter
-import me.vponomarenko.trailers.utils.palette.PaletteHelper
+import me.vponomarenko.trailers.feature.player.viewdata.PlayerViewData
 import me.vponomarenko.trailers.feature.player.viewmodel.PlayerViewModel
+import me.vponomarenko.trailers.utils.palette.PaletteHelper
 import javax.inject.Inject
 
 /**
@@ -122,6 +122,7 @@ class PlayerFragment : BaseFragment() {
 
     override fun onDestroy() {
         super.onDestroy()
+        viewModel.playInPreview(player.currentPosition)
         player.release()
     }
 

@@ -34,14 +34,14 @@ class LocalDataSource @Inject constructor() {
                     "La La Land",
                     "https://images-na.ssl-images-amazon.com/images/M/MV5BMzUzNDM2NzM2MV5BMl5BanBnXkFtZTgwNTM3NTg4OTE@._V1_SY1000_SX675_AL_.jpg",
                     "While navigating their careers in Los Angeles, a pianist and an actress fall in love while attempting to reconcile their aspirations for the future.",
-                    "http://178.162.205.104/download/?title=la+la+land+-+trailer&url=https%3A%2F%2Fcs510606.vkuservideo.net%2F8%2Fu20274712%2Fvideos%2Fe112b70490.720.mp4%3Fextra%3DCBg9YHFeN1eSPW_k0yRLxPa0WxJhdY_dixoR-kUF7YkP_VLDqTSPdsAsYmiTZgYCCUC8uszB6fI8m0DBuTONrqpGRoZQbvnikdh0VzRlr5Ckg8hz809y1BN9KQz2GckSAQ"
+                    "http://178.162.205.104/download/?title=La+La+Land+Trailer&url=https%3A%2F%2Fcs510502.vkuservideo.net%2F6%2Fu816950%2Fvideos%2F155a71ba93.720.mp4%3Fextra%3DqSLer5uHM1mMWqUA1Ucoexlt5oD0mCE3amkLagizlRF_6VvWEY_fQ6Nyi1fjq2qJstiUYblEmvw4_hCbmuJeo3-czdBEvhRDHGKu2uqLH2vwGtsyiXS3ch-npltmx0Tn"
             )
             ,
             TrailerFullInfo(
                     "The Greatest Showman",
                     "https://shyfyy.files.wordpress.com/2017/12/greatestshowman-8.jpg",
                     "Celebrates the birth of show business, and tells of a visionary who rose from nothing to create a spectacle that became a worldwide sensation.",
-                    "http://178.162.205.104/download/?title=The+Greatest+Showman+↑+Official+Trailer&url=https%3A%2F%2Fcs640203.vkuservideo.net%2F5%2Fu12869897%2Fvideos%2Ff32ecc3cfd.1080.mp4%3Fextra%3Dx-7C-z66Yn8sPYXbpBtf7us-hk-u40SRYj3BM4MTjRsajScaeeC49qnYEVxS28kr9pMna3jAk9MuXNEg7ei7yGv7QVtBGT-ufcntarm-UmiYwkg5nNlxXZYx8gw_rl8xlQ"
+                    "http://178.162.205.104/download/?title=The+Greatest+Showman+↑+Official+Trailer&url=https%3A%2F%2Fcs640201.vkuservideo.net%2F5%2Fu12869897%2Fvideos%2F8c8bf08517.720.mp4%3Fextra%3Dj3IhLOsdB_w99gZO8740v2JfjuzuH0fBKjABjyT_t-glF8uiZBNP_nHRodcqqtKF5smjRbxJ16-c3HZNTIZtLH61-NE0cjfVKuMUhN6fB0TG-wb6ZL9LeItQuwNQM5i_sA"
             )
     )
 

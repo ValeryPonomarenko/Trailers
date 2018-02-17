@@ -9,6 +9,6 @@
     <dimen name="trailer_small_card_height">145dp</dimen>
 
     <dimen name="player_height">230dp</dimen>
-    <dimen name="small_player_width">140dp</dimen>
-    <dimen name="small_player_height">78dp</dimen>
+    <dimen name="preview_video_view_width">200dp</dimen>
+    <dimen name="preview_video_view_height">112dp</dimen>
 </resources>
